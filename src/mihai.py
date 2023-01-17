@@ -74,17 +74,23 @@ def voice():
     li = b
 
     vlad_op_list=[]
-    pieces = ["rook", "queen", "king", "bishop", "knight", "pawn"]
+    pieces = ["rook", "queen", "king", "bishop", "knight", "pawn","castle"]
     print(li)
     for i in li:
       for j in pieces:
         try:
           x=i.lower().index(j)
+          if j=="castle":
+            print("$")
+            if i[x-6:x-1]=="short":
+              vlad_op_list.append("O-O")
+            elif i[x-5:x-1]=="long":
+              vlad_op_list.append("O-O-O")
           for k in range(len(i)):
             if i[k].isalpha() and i[k+1].isnumeric():
                 vlad_op_list.append(i[x:k+2])
         except:
-          pass
+         pass
     print(vlad_op_list)
     my_cool_list = []; placements = ["a","b","c","d","e","f","g","h","A","B","C","D","E","F","G","H",]
     for i in vlad_op_list:
