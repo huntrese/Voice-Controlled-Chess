@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+
 import argparse
 import random
 import sys
@@ -11,8 +12,12 @@ from src.InputParser import InputParser
 from src.Move import Move
 from src.Piece import Piece
 
+from mihai import *
+
 WHITE = True
 BLACK = False
+
+
 
 
 def askForPlayerSide() -> bool:
@@ -133,15 +138,19 @@ def startGame(board: Board, playerSide: bool, ai: AI) -> None:
             printGameMoves(board.history)
             return
 
-        if board.noMatingMaterial():
-            print('Draw due to no mating material')
-            printGameMoves(board.history)
-            return
+        # if board.noMatingMaterial():
+        #     print('Draw due to no mating material')
+        #     printGameMoves(board.history)
+        #     return
 
         if board.currentSide == playerSide:
             # printPointAdvantage(board)
             move = None
-            command = input("It's your move." " Type '?' for options. ? ")
+            command = ""
+            while command == "":
+                command = voice() 
+                print("try again")
+                #input("It's your move." " Type '?' for options. ? ")
             if command.lower() == 'u':
                 undoLastTwoMoves(board)
                 printBoard(board)
@@ -200,10 +209,15 @@ def twoPlayerGame(board: Board) -> None:
             parser = parserWhite
         else:
             parser = parserBlack
-        command = input(
-            "It's your move, {}.".format(board.currentSideRep())
-            + " Type '?' for options. ? "
-        )
+        command = ""
+        while command == "":
+            command = voice() 
+            print("try again")
+        
+        #input(
+            #"It's your move, {}.".format(board.currentSideRep())
+            #+ " Type '?' for options. ? "
+        #)
         if command.lower() == 'u':
             undoLastTwoMoves(board)
             continue
