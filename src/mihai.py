@@ -64,9 +64,14 @@ def voice():
       " for":"4",
       " free":"3"
   }
-    li = [i.get("transcript").replace(x,dic[x]) for i in MyText for x in dic]
-    
-    li=list(set(li))
+    li = [i.get("transcript") for i in MyText] 
+    b = []
+    for i in li:
+        for x in dic:
+            i = i.replace(x,dic[x])
+        b.append(i)
+
+    li = b
 
     vlad_op_list=[]
     pieces = ["rook", "queen", "king", "bishop", "knight", "pawn"]
@@ -81,12 +86,12 @@ def voice():
         except:
           pass
     print(vlad_op_list)
-    my_cool_list = []
+    my_cool_list = []; placements = ["a","b","c","d","e","f","g","h","A","B","C","D","E","F","G","H",]
     for i in vlad_op_list:
     #i2 = i.replace("before","B4").replace("8","A").replace("see","C").replace("9","knight")
       for j in range(len(i)):
         try:
-          if i[j] == i[j].upper() and i[j+1].isnumeric() and i[j].isalpha():
+          if i[j] in placements and i[j+1].isnumeric() and i[j].isalpha():
             my_cool_list.append(i)
         except:
           pass
