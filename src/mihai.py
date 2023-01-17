@@ -2,12 +2,41 @@ import speech_recognition as sr
 import pyttsx3
 
 r = sr.Recognizer()
-
+pieces = ["rook", "queen", "king", "bishop", "knight", "pawn","castle"]
 def lev(a, b):
     if not a: return len(b)
     if not b: return len(a)
     return min(lev(a[1:], b[1:])+(a[0] != b[0]), lev(a[1:], b)+1, lev(a, b[1:])+1)
 
+def form(li):
+    vlad_op_list=[]
+    phrase=""
+    print(li)
+    for i in li:
+      for j in pieces:
+        try:
+          x=i.lower().index(j)
+          if j=="castle":
+            print("$")
+            if i[x-6:x-1]=="short":
+              vlad_op_list.append("O-O")
+            elif i[x-5:x-1]=="long":
+              vlad_op_list.append("O-O-O")
+          for k in range(len(i)):
+            if i[k].isalpha() and i[k+1].isnumeric():
+              phrase=i[x:k+2]
+              for l in pieces:
+                if l in i[k+2:].lower():
+                  phrase+=" "+l
+              if phrase not in vlad_op_list:
+                vlad_op_list.append(phrase) 
+              
+        except:
+         pass
+    for i in vlad_op_list:
+      if i.replace(" ","") in pieces:
+        vlad_op_list.remove(i)
+    return vlad_op_list
 def voice():
   try:
     try:
@@ -73,27 +102,12 @@ def voice():
 
     li = b
 
-    vlad_op_list=[]
-    pieces = ["rook", "queen", "king", "bishop", "knight", "pawn","castle"]
+    li=form(li)
+
+
     print(li)
-    for i in li:
-      for j in pieces:
-        try:
-          x=i.lower().index(j)
-          if j=="castle":
-            print("$")
-            if i[x-6:x-1]=="short":
-              vlad_op_list.append("O-O")
-            elif i[x-5:x-1]=="long":
-              vlad_op_list.append("O-O-O")
-          for k in range(len(i)):
-            if i[k].isalpha() and i[k+1].isnumeric():
-                vlad_op_list.append(i[x:k+2])
-        except:
-         pass
-    print(vlad_op_list)
     my_cool_list = []; placements = ["a","b","c","d","e","f","g","h","A","B","C","D","E","F","G","H",]
-    for i in vlad_op_list:
+    for i in li:
     #i2 = i.replace("before","B4").replace("8","A").replace("see","C").replace("9","knight")
       for j in range(len(i)):
         try:
