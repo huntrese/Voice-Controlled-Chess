@@ -37,6 +37,40 @@ def checkCastle(i,x,j):
   else:
     return("")
 
+def ns():
+  dic={
+    "be":"B",
+    "see":"C",
+    "age":"H",
+    "night":"Knight",
+    "tonight":"Knight",
+    "own":"pawn",
+    "book":"rook",
+    "look":"rook",
+    "nice":"Knight",
+    "porn":"pawn",
+    "phone":"pawn",
+    "born":"pawn",
+    " one":"1",
+    " two":"2",
+    " three":"3",
+    " four":"4",
+    " five":"5",
+    " six":"6",
+    " seven":"7",
+    " eight":"8",
+    " nine":"9",
+    " for":"4",
+    " free":"3"
+  }
+  b = []
+  for i in li:
+    for x in dic:
+      i = i.replace(x,dic[x])
+      b.append(i)
+  li = b
+  return li
+
 def form(li):
     vlad_op_list = []
     final = []
@@ -86,6 +120,7 @@ def voice():
     #'night to e-4'}, {'transcript': 'night to eat for'}, {'transcript': ' how r u? rook to B8'}, {'transcript': 'hahaha CHECKMATE queen to C4'}]
 
       li = [i.get("transcript") for i in MyText] 
+      li=ns(li)
       li=form(li)
 
       print(li)
@@ -115,5 +150,3 @@ def voice():
         v+=right[1][:1]
       return(v)
     
-  
-voice()
