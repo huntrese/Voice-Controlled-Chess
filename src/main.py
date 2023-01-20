@@ -5,6 +5,7 @@ import argparse
 import random
 import sys
 from typing import Optional
+import pyttsx3
 
 from src.AI import AI
 from src.Board import Board
@@ -148,7 +149,7 @@ def startGame(board: Board, playerSide: bool, ai: AI) -> None:
             move = None
             command = ""
             while command == "":
-                command = voice() 
+                command = get() 
                 print("try again")
                 #input("It's your move." " Type '?' for options. ? ")
             if command.lower() == 'u':
@@ -180,6 +181,7 @@ def startGame(board: Board, playerSide: bool, ai: AI) -> None:
             print('AI thinking...')
             move = ai.getBestMove()
             move.notation = parser.notationForMove(move)
+            pyttsx3.speak(move.notation)
             makeMove(move, board)
             printBoard(board)
 
@@ -211,7 +213,7 @@ def twoPlayerGame(board: Board) -> None:
             parser = parserBlack
         command = ""
         while command == "":
-            command = voice() 
+            command = get() 
             print("try again")
         
         #input(
